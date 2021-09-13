@@ -1,4 +1,6 @@
-# escape_from_XGS_57
+# Escape from XGS-57
+
+This is my entry for the desktop category in js13k 2021!
 
 Escape from XGS-57 is a real-time survival strategy game inspired by Frostpunk and Subnautica. You play a space trader who crashed onto the water planet XGS-57 and must remote control your gadgets on site to rebuild a rocket and escape.
 
