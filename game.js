@@ -14,47 +14,11 @@ function init(){
     drawMenu(); //Menu screen
 
 }
-//Images
-//Image array
-var images = [];
-
-//Address array for images
-var arr = ["ore.png",
-"water.png","power.png",
-"ice.png"];
-//Preload Images
-function ImageLoader(sources, callback)
-{
-    var loadedImages = 0;
-    var numImages = sources.length;
-
-    for (i = 0; i < numImages; i++) {
-        images[i] = new Image();
-        images[i].onload = function() {
-            if (++loadedImages >= numImages) {
-                callback(images);
-            }
-        };
-        images[i].src = sources[i];
-    }
-}
-
-
-var loader = ImageLoader(arr, function() {
-
-    // Draw all of the loaded images
-    for (var i = 0; i < images.length; i++) {
-        console.log("Image " + (i + 1) + " is loaded!");
-    }
-
-
-});
 
 var count = 0;
 var render_count = 0;
 var frame_rate = 60;
 MS_PER_UPDATE = 1000 / frame_rate;
-var total_frames = 0;
 
 var lag = 0;
 var prev = Date.now();
@@ -347,9 +311,7 @@ document.addEventListener('mousedown', function(e){
                     message("Not enough ore!");
                 }
             } else if (selected_building[0] == 6){
-                console.log(pb)
                 if (pb == 0) {
-                    console.log("ah");
                     if (res[0] >= 10 && res[1] >= 10 && res[2] >= 10 && res[3] >= 5){
                         state = "end";
                         drawEnd("rocket");
@@ -529,14 +491,9 @@ function render(delta){
     ct.clearRect(0, 0, canvas2.width, canvas2.height);
 
     //Draw bg iceberg
+    c.fillStyle = "rgb(210, 220, 255)";
+    c.fillRect(0, 0, canvas.width, canvas.height);
 
-    c.drawImage(images[3], 0 - x_offset, y_offset - canvas.height, canvas.width, canvas.height);
-    // move to x + img's width
-    c.translate(3 * canvas.width / 2 - x_offset ,y_offset - 550);
-    // scaleX by -1; this "trick" flips horizontally
-    c.scale(-1,1);
-    c.drawImage(images[3], 0, 0, canvas.width, canvas.height);
-    c.setTransform(1,0,0,1,0,0);
     var x = (map.length + 1) * tilewidth - x_offset;
     var y = y_offset + (-1 * map.length) * (tilewidth / 2);
     column(x - tilewidth, y + (20- water_level)*height, rgb(20, 10, 85), 20, oc, map.length * tilewidth);
@@ -643,9 +600,9 @@ function render(delta){
     //Write Resources
     c3.font = resource_font;
     c3.fillStyle = "white";
-    c3.fillText(Math.round(ore * 100) / 100 + "(" + Math.round(d_ore * 100) / 100 + ")", 40, 25);
-    c3.fillText(Math.round(water * 100) / 100 + "(" + Math.round(d_water * 100) / 100 + ")", 160, 25);
-    c3.fillText(Math.round(power * 10) / 10, 280, 25);
+    c3.fillText("Ore: " + Math.round(ore * 100) / 100 + "(" + Math.round(d_ore * 100) / 100 + ")", 40, 25);
+    c3.fillText("Water: " + Math.round(water * 100) / 100 + "(" + Math.round(d_water * 100) / 100 + ")", 160, 25);
+    c3.fillText("Power: " + Math.round(power * 10) / 10, 340, 25);
     c3.fillStyle = "rgb(150, 150, 255)";
     c3.fillText("Water Level:" + Math.round(water_level * 1000) / 100 + " m " + "(" + Math.round(d_level * 1000) / 100 + " m)", 520, 25);
     //Temperature
@@ -658,10 +615,6 @@ function render(delta){
     c3.fillText("Plastic: " + res[2], 320, 50);
     c3.font = "9pt courier new";
     c3.fillText("1 Steel = " + convert[2] + " ore, " + "1 Aluminum = " + convert[1] + " ore, " + "1 Plastic = " + convert[2] + " ore, " + "1 Dynamite = " + convert[3] + " ore  ", 460, 50);
-
-    c3.drawImage(images[0], 10, 0);
-    c3.drawImage(images[1], 130, 0);
-    c3.drawImage(images[2], 250, 0);
 
 
     //Draw controls layer
@@ -755,6 +708,10 @@ function update(delta){
         heat = 0;
     }
     if (water <= 0) {
+        state = "end";
+        drawEnd("water");
+    }
+    if (water_level > 2){
         state = "end";
         drawEnd("water");
     }

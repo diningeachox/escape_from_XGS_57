@@ -46,10 +46,6 @@ function drawBuild(left, top){
     }
 }
 
-function drawDummy(left, top, b){
-
-}
-
 function drawFurnace(left, top){
     //Draw buttons
     drawButton(c2, left + 20, top + 20, 1, "Steel", "white");
@@ -83,6 +79,9 @@ function drawEnd(mode){
     var text = "WITH YOUR REMOTE CONTROL SKILLS AND RESOURCEFULNESS, WE HAVE ESCAPED!!";
     if (mode === "water"){
         text = "YOU RAN OUT OF WATER AND ARE THEREFORE STRANDED FOREVER ON THIS DREADED PLANET...";
+    }
+    if (mode === "drown"){
+        text = "THE WATER HAS SWALLOWED UP OUR BUILDINGS, ALONG WITH OUR HOPES OF A PROMOTION...";
     }
     ol.fillStyle = "rgb(0, 0, 0, 0.3)"; //Transparent black
     ol.fillRect(0, 0, overlay.width, overlay.height);
