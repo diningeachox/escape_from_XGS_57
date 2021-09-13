@@ -8,7 +8,7 @@ Space will be very important in this game, as it is a scarce resource and most o
 
 (NOTE: If you're stuck at any point and want to restart, just refresh the browser!)
 
-# Controls:
+## Controls:
 WASD to move camera
 Q and E to shift perspectives
 C to cancel something you're about to build
